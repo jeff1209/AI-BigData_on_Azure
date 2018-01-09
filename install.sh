@@ -1,0 +1,17 @@
+#!/bin/bash
+#Please be aware that installing the below will add additional 20 mins to cluster creation because of the dependencies
+#installing all dependencies, including the ones mentioned in http://caffe.berkeleyvision.org/install_apt.html, as well a few packages that are not included in HDInsight, such as gflags, glog, lmdb, numpy
+#It seems numpy will only needed during compilation time, but for safety purpose we install them on all the nodes
+
+sudo apt-get install -y libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler maven libatlas-base-dev libgflags-dev libgoogle-glog-dev liblmdb-dev build-essential  libboost-all-dev python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+
+#install protobuf
+wget https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz
+sudo tar xzvf protobuf-2.5.0.tar.gz -C /tmp/
+cd /tmp/protobuf-2.5.0/
+sudo ./configure
+sudo make
+sudo make check
+sudo make install
+sudo ldconfig
+echo "protobuf installation done"
